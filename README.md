@@ -1,6 +1,6 @@
 # EmacsOnWin
 
-Make CapsLock a Ctrl (You can use shift+CaspLock to toggle CapsLock mod)
+Make CapsLock a Ctrl (You can use shift+CaspLock to toggle CapsLock mode)
 
 Allows you to use emacs-like key bindings on Windows environment.
 
