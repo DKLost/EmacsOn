@@ -406,5 +406,5 @@ scroll_down()
     Send %A_ThisHotkey%
   Else
     scroll_up()
+  return
 #CapsLock::Suspend
-Return
