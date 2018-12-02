@@ -15,251 +15,256 @@ is_pre_spc = 0
 ; (Please comment out applications you don't use)
 
 is_target(){
-  IfWinActive,ahk_class ConsoleWindowClass ; Cygwin
-    Return 1
-  IfWinActive,ahk_class MEADOW ; Meadow
-    Return 1 
-  IfWinActive,ahk_class cygwin/x X rl-xterm-XTerm-0
-    Return 1
-  IfWinActive,ahk_class MozillaUIWindowClass ; keysnail on Firefox
-    Return 1
-  IfWinActive,ahk_class VMwareUnityHostWndClass
-    Return 1
-  IfWinActive,ahk_class Vim ; GVIM
-    Return 1
-; IfWinActive,ahk_class SWT_Window0 ; Eclipse
-;   Return 1
-  IfWinActive,ahk_class Xming X
-    Return 1
-; IfWinActive,ahk_class SunAwtFrame
-;   Return 1
-  IfWinActive,ahk_class Emacs
-    Return 1
-  IfWinActive,ahk_exe VirtualBox.exe
-    Return 1
-; IfWinActive,ahk_class XEmacs ; XEmacs on Cygwin
-;   Return 1
-  Return 0
+  ifWinActive,ahk_class ConsoleWindowClass ; Cygwin
+    return 1
+  ifWinActive,ahk_class MEADOW ; Meadow
+    return 1 
+  ifWinActive,ahk_class cygwin/x X rl-xterm-XTerm-0
+    return 1
+  ifWinActive,ahk_class MozillaUIWindowClass ; keysnail on Firefox
+    return 1
+  ifWinActive,ahk_class VMwareUnityHostWndClass
+    return 1
+  ifWinActive,ahk_class Vim ; GVIM
+    return 1
+; ifWinActive,ahk_class SWT_Window0 ; Eclipse
+;   return 1
+  ifWinActive,ahk_class Xming X
+    return 1
+; ifWinActive,ahk_class SunAwtFrame
+;   return 1
+  ifWinActive,ahk_class Emacs
+    return 1
+  ifWinActive,ahk_exe VirtualBox.exe
+    return 1
+; ifWinActive,ahk_class XEmacs ; XEmacs on Cygwin
+;   return 1
+  return 0
 }
 
 
 delete_char(){
   Send {Del}
   global is_pre_spc = 0
-  Return
+  return
 }
 kill_forward(){
-  Send {ShiftDown}{END}{SHIFTUP}
+  Send {ShiftDown}{END}{SHifTUP}
   Sleep 50 ;[ms] this value depends on your environment
   Send ^x
   global is_pre_spc = 0
-  Return
+  return
 }
 kill_backward(){
-  Send {ShiftDown}{HOME}{SHIFTUP}
+  Send {ShiftDown}{HOME}{SHifTUP}
   Sleep 50 ;[ms] this value depends on your environment
   Send ^x
   global is_pre_spc = 0
   global is_pre_x = 0
-  Return
+  return
 }
 open_line(){
   Send {Enter}{Up}{END}
   global is_pre_spc = 0
-  Return
+  return
 }
 quit(){
-  Send {ESC}
-  global is_pre_spc = 0
-  global is_pre_x = 0
-  Return
+  global
+  if is_pre_spc || is_pre_x{
+    is_pre_spc = 0
+    is_pre_x = 0
+  }
+  else 
+    Send {ESC}
+  return
 }
 newline(){
   Send {Enter}
   global is_pre_spc = 0
-  Return
+  return
 }
-indent_for_tab_command()
-{
+indent_for_tab_command(){
   Send {Tab}
   global is_pre_spc = 0
-  Return
+  return
 }
-newline_and_indent()
-{
+newline_and_indent(){
   Send {Enter}{Tab}
   global is_pre_spc = 0
-  Return
+  return
 }
-isearch_forward()
-{
+isearch_forward(){
   Send ^f
   global is_pre_spc = 0
-  Return
+  return
 }
-isearch_backward()
-{
+isearch_backward(){
   Send ^f
   global is_pre_spc = 0
-  Return
+  return
 }
-kill_region()
-{
+kill_region(){
   Send ^x
   global is_pre_spc = 0
-  Return
+  return
 }
-kill_ring_save()
-{
+kill_ring_save(){
   Send ^c
   global is_pre_spc = 0
-  Return
+  return
 }
-yank()
-{
+yank(){
   Send ^v
   global is_pre_spc = 0
-  Return
+  return
 }
 undo(){
   Send ^z
   global is_pre_spc = 0
-  Return
+  return
 }
 redo(){
   Send ^y
   global is_pre_spc = 0
   global is_pre_x = 0
-  Return
+  return
 }
-find_file()
-{
+find_file(){
   Send ^o
   global is_pre_x = 0
-  Return
+  return
 }
-save_buffer()
-{
+save_buffer(){
   Send, ^s
   global is_pre_x = 0
-  Return
+  return
 }
-kill_emacs()
-{
+kill_emacs(){
   Send !{F4}
   global is_pre_x = 0
-  Return
+  return
 }
 
-move_beginning_of_line()
-{
+move_beginning_of_line(){
   global
   if is_pre_spc
     Send +{HOME}
-  Else
+  else
     Send {HOME}
-  Return
+  return
 }
-move_end_of_line()
-{
+move_end_of_line(){
   global
   if is_pre_spc
     Send +{END}
-  Else
+  else
     Send {END}
-  Return
+  return
 }
-previous_line()
-{
+previous_line(){
   global
   if is_pre_spc
     Send +{Up}
-  Else
+  else
     Send {Up}
-  Return
+  return
 }
-next_line()
-{
+next_line(){
   global
   if is_pre_spc
     Send +{Down}
-  Else
+  else
     Send {Down}
-  Return
+  return
 }
-forward_char()
-{
+forward_char(){
   global
   if is_pre_spc
     Send +{Right}
-  Else
+  else
     Send {Right}
-  Return
+  return
 }
-backward_char()
-{
+forward_word(){
   global
   if is_pre_spc
     Send +{Left} 
-  Else
-    Send {Left}
-  Return
+  else
+    Send ^{Right}
+  return
 }
-scroll_up()
-{
+backward_char(){
+  global
+  if is_pre_spc
+    Send +{Left} 
+  else
+    Send {Left}
+  return
+}
+backward_word(){
+  global
+  if is_pre_spc
+    Send +{Left} 
+  else
+    Send ^{Left}
+  return
+}
+scroll_up(){
   global
   if is_pre_spc
     Send +{PgUp}
-  Else
+  else
     Send {PgUp}
-  Return
+  return
 }
-scroll_down()
-{
+scroll_down(){
   global
   if is_pre_spc
     Send +{PgDn}
-  Else
+  else
     Send {PgDn}
-  Return
+  return
 }
 
-#if !is_target()
-  CapsLock::Ctrl
-  +CapsLock::CapsLock
+
 
 ^x::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
     is_pre_x = 1
-  Return 
+  return 
 ^f::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
-  {
-    If is_pre_x
+  else{
+    if is_pre_x
       find_file()
-    Else
+    else
       forward_char()
   }
-  Return  
+  return  
+!f::
+  if is_target()
+    Send %A_ThisHotKey%
+  else
+    forward_word()
+  return 
 ^c::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
   {
-    If is_pre_x
+    if is_pre_x
       kill_emacs()
   }
-  Return  
+  return  
 ^d::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
     delete_char()
-  Return
+  return
 ^k::
   if is_target()
     Send %A_ThisHotkey%
@@ -271,73 +276,73 @@ scroll_down()
   }
   return
 ^o::
-   If is_target()
+   if is_target()
      Send %A_ThisHotkey%
-   Else
+   else
      open_line()
-   Return
+   return
 ^g::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
     quit()
-  Return
+  return
 ^j::
-   If is_target()
+   if is_target()
      Send %A_ThisHotkey%
-   Else
+   else
      newline_and_indent()
-   Return
+   return
 ^m::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
     newline()
-  Return
+  return
 ^i::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
     indent_for_tab_command()
-  Return
+  return
 ^s::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else{
-    If is_pre_x
+  else{
+    if is_pre_x
       save_buffer()
-    Else
+    else
       isearch_forward()
   }
-  Return
+  return
 ^r::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
     isearch_backward()
-  Return
+  return
 ^w::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
     kill_region()
-  Return
+  return
 !w::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
     kill_ring_save()
-  Return
+  return
 ^y::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
     yank()
-  Return
+  return
 ^/::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else{
+  else{
     if is_pre_x
       redo()
     else 
@@ -346,68 +351,78 @@ scroll_down()
   return  
  
 ^Space::
-  If is_target()
+  if is_target()
     Send {CtrlDown}{Space}{CtrlUp}
-  Else
+  else
   {
-    If is_pre_spc
+    if is_pre_spc
       is_pre_spc = 0
-    Else
+    else
       is_pre_spc = 1
   }
-  Return
+  return
 ^@::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
   {
-    If is_pre_spc
+    if is_pre_spc
       is_pre_spc = 0
-    Else
+    else
       is_pre_spc = 1
   }
-  Return
+  return
 ^a::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
     move_beginning_of_line()
-  Return
+  return
 ^e::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
     move_end_of_line()
-  Return
+  return
 ^p::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
     previous_line()
-  Return
+  return
 ^n::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
     next_line()
-  Return
+  return
 ^b::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
     backward_char()
-  Return
+  return
+!b::
+  if is_target()
+    Send %A_ThisHotKey%
+  else
+    backward_word()
+  return 
 ^v::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
     scroll_down()
-  Return
+  return
 !v::
-  If is_target()
+  if is_target()
     Send %A_ThisHotkey%
-  Else
+  else
     scroll_up()
   return
 
 #CapsLock::Suspend
+
+#if !is_target()
+  CapsLock::Ctrl
+  +CapsLock::CapsLock

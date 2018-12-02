@@ -14,15 +14,15 @@ Allows you to use emacs-like key bindings on Windows environment.
 
 | Keybinding     | Function(Emacs Lisp)     |
 | -------------- | ------------------------ |
-| C-Space        | set-mark-command         |
-| C-@            | set-mark-command         |
 | C-x C-f        | find-file                |
 | C-x C-s        | save-buffer              |
 | C-x C-c        | kill-emacs               |
-| C-d            | delete-char              |
-| C-x C-/        | redo                     |
-| C-k            | kill-forward             |
 | C-x C-k        | kill-backward            |
+| C-x C-/        | redo                     |
+| C-Space        | set-mark-command         |
+| C-@            | set-mark-command         |
+| C-d            | delete-char              |
+| C-k            | kill-forward             |
 | C-g            | quit                     |
 | C-j            | newline-and-indent       |
 | C-m            | newline                  |
@@ -40,8 +40,10 @@ Allows you to use emacs-like key bindings on Windows environment.
 | C-f            | forward-char             |
 | C-b            | backward-char            |
 | C-v            | scroll-down              |
-| M-v            | scroll-up                |
 | C-o            | open-line                |
+| M-v            | scroll-up                |
+| M-f            | forward-word             |
+| M-b            | backward-word            |
 | CapsLock       | Ctrl                     |
 | Shift+CapsLock | CapsLcok                 |
 | Win+CapsLock   | suspend/unsuspend script |
