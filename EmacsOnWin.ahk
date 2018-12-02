@@ -126,7 +126,6 @@ undo(){
 redo(){
   Send ^y
   global is_pre_spc = 0
-  global is_pre_x = 0
   return
 }
 find_file(){
@@ -225,8 +224,22 @@ scroll_down(){
     Send {PgDn}
   return
 }
-
-
+move_to_top(){
+  global
+  if is_pre_spc
+    Send +^{Home} 
+  else
+    Send ^{Home}
+  return
+}
+move_to_end(){
+  global
+  if is_pre_spc
+    Send +^{End} 
+  else
+    Send ^{End}
+  return
+}
 
 ^x::
   if is_target()
@@ -420,7 +433,18 @@ scroll_down(){
   else
     scroll_up()
   return
-
+!<::
+  if is_target()
+    Send %A_ThisHotKey%
+  else
+    move_to_top()
+  return
+!>::
+  if is_target()
+    Send %A_ThisHotKey%
+  else
+    move_to_end()
+  return
 #CapsLock::Suspend
 
 #if !is_target()

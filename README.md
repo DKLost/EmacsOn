@@ -42,8 +42,10 @@ Allows you to use emacs-like key bindings on Windows environment.
 | C-v            | scroll-down              |
 | C-o            | open-line                |
 | M-v            | scroll-up                |
-| M-f            | forward-word             |
-| M-b            | backward-word            |
+| M-f            | Move forward one word    |
+| M-b            | Move backward one word   |
+| M-<            | Move to top of buffer    |
+| M->            | Move to Bottom of buffer |
 | CapsLock       | Ctrl                     |
 | Shift+CapsLock | CapsLcok                 |
 | Win+CapsLock   | suspend/unsuspend script |
