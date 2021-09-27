@@ -11,37 +11,18 @@ is_pre_x = 0
 ; turns to be 1 when ctrl-space is pressed
 is_pre_spc = 0
 
-; Applications you want to disable emacs-like keybindings
-; (Please comment out applications you don't use)
-
 is_target(){
-  ifWinActive,ahk_class ConsoleWindowClass ; Cygwin
-    return 1
-  ifWinActive,ahk_class MEADOW ; Meadow
-    return 1 
-  ifWinActive,ahk_class cygwin/x X rl-xterm-XTerm-0
-    return 1
-  ifWinActive,ahk_class MozillaUIWindowClass ; keysnail on Firefox
-    return 1
-  ifWinActive,ahk_class VMwareUnityHostWndClass
-    return 1
-  ifWinActive,ahk_class Vim ; GVIM
-    return 1
-; ifWinActive,ahk_class SWT_Window0 ; Eclipse
-;   return 1
-  ifWinActive,ahk_class Xming X
-    return 1
-; ifWinActive,ahk_class SunAwtFrame
-;   return 1
-  ifWinActive,ahk_class Emacs
-    return 1
-  ifWinActive,ahk_exe VirtualBox.exe
-    return 1
-; ifWinActive,ahk_class XEmacs ; XEmacs on Cygwin
-;   return 1
   return 0
 }
 
+select_all(){
+  global
+  if is_pre_x
+    Send ^a 
+  else
+    Send h
+  return
+}
 
 delete_char(){
   Send {Del}
@@ -241,12 +222,8 @@ move_to_end(){
   return
 }
 
-^x::
-  if is_target()
-    Send %A_ThisHotkey%
-  else
-    is_pre_x = 1
-  return 
+h:: select_all()
+^x:: is_pre_x = 1
 ^f::
   if is_target()
     Send %A_ThisHotkey%
@@ -257,12 +234,7 @@ move_to_end(){
       forward_char()
   }
   return  
-!f::
-  if is_target()
-    Send %A_ThisHotKey%
-  else
-    forward_word()
-  return 
+!f::forward_word()
 ^c::
   if is_target()
     Send %A_ThisHotkey%
@@ -272,12 +244,7 @@ move_to_end(){
       kill_emacs()
   }
   return  
-^d::
-  if is_target()
-    Send %A_ThisHotkey%
-  else
-    delete_char()
-  return
+^d::delete_char()
 ^k::
   if is_target()
     Send %A_ThisHotkey%
@@ -288,36 +255,11 @@ move_to_end(){
       kill_forward()
   }
   return
-^o::
-   if is_target()
-     Send %A_ThisHotkey%
-   else
-     open_line()
-   return
-^g::
-  if is_target()
-    Send %A_ThisHotkey%
-  else
-    quit()
-  return
-^j::
-   if is_target()
-     Send %A_ThisHotkey%
-   else
-     newline_and_indent()
-   return
-^m::
-  if is_target()
-    Send %A_ThisHotkey%
-  else
-    newline()
-  return
-^i::
-  if is_target()
-    Send %A_ThisHotkey%
-  else
-    indent_for_tab_command()
-  return
+^o::open_line()
+^g::quit()
+^j::newline_and_indent()
+^m::newline()
+^i::indent_for_tab_command()
 ^s::
   if is_target()
     Send %A_ThisHotkey%
@@ -328,30 +270,10 @@ move_to_end(){
       isearch_forward()
   }
   return
-^r::
-  if is_target()
-    Send %A_ThisHotkey%
-  else
-    isearch_backward()
-  return
-^w::
-  if is_target()
-    Send %A_ThisHotkey%
-  else
-    kill_region()
-  return
-!w::
-  if is_target()
-    Send %A_ThisHotkey%
-  else
-    kill_ring_save()
-  return
-^y::
-  if is_target()
-    Send %A_ThisHotkey%
-  else
-    yank()
-  return
+^r::isearch_backward()
+^w::kill_region()
+!w::kill_ring_save()
+^y::yank()
 ^/::
   if is_target()
     Send %A_ThisHotkey%
@@ -385,66 +307,17 @@ move_to_end(){
       is_pre_spc = 1
   }
   return
-^a::
-  if is_target()
-    Send %A_ThisHotkey%
-  else
-    move_beginning_of_line()
-  return
-^e::
-  if is_target()
-    Send %A_ThisHotkey%
-  else
-    move_end_of_line()
-  return
-^p::
-  if is_target()
-    Send %A_ThisHotkey%
-  else
-    previous_line()
-  return
-^n::
-  if is_target()
-    Send %A_ThisHotkey%
-  else
-    next_line()
-  return
-^b::
-  if is_target()
-    Send %A_ThisHotkey%
-  else
-    backward_char()
-  return
-!b::
-  if is_target()
-    Send %A_ThisHotKey%
-  else
-    backward_word()
-  return 
-^v::
-  if is_target()
-    Send %A_ThisHotkey%
-  else
-    scroll_down()
-  return
-!v::
-  if is_target()
-    Send %A_ThisHotkey%
-  else
-    scroll_up()
-  return
-!<::
-  if is_target()
-    Send %A_ThisHotKey%
-  else
-    move_to_top()
-  return
-!>::
-  if is_target()
-    Send %A_ThisHotKey%
-  else
-    move_to_end()
-  return
+^a::move_beginning_of_line()
+^e::move_end_of_line()
+^p::previous_line()
+^n::next_line()
+^b::backward_char()
+!b::backward_word()
+^v::scroll_down()
+!v::scroll_up()
+!<::move_to_top()
+!>::move_to_end()
+
 #CapsLock::Suspend
 
 #if !is_target()

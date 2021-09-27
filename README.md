@@ -20,6 +20,7 @@ Allows you to use emacs-like key bindings on Windows environment.
 | C-x C-k        | kill-backward            |
 | C-x C-/        | redo                     |
 | C-Space        | set-mark-command         |
+| C-x h          | select-all               |
 | C-@            | set-mark-command         |
 | C-d            | delete-char              |
 | C-k            | kill-forward             |
@@ -49,6 +50,8 @@ Allows you to use emacs-like key bindings on Windows environment.
 | CapsLock       | Ctrl                     |
 | Shift+CapsLock | CapsLcok                 |
 | Win+CapsLock   | suspend/unsuspend script |
+
+
 
 
 
